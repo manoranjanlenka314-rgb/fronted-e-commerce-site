@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>hemoon.shoppy</title>
+
+<style>
+:root{
+    --bg:#0f0c29;
+    --card:rgba(255,255,255,0.1);
+    --text:white;
+}
+.light{
+    --bg:#f5f5f5;
+    --card:white;
+    --text:black;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Poppins, sans-serif;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    transition:0.5s;
+    overflow-x:hidden;
+}
+
+/* ===== NAVBAR ===== */
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 30px;
+    background:rgba(0,0,0,0.5);
+    position:sticky;
+    top:0;
+    z-index:100;
+    box-shadow:0 0 25px cyan;
+}
+
+nav h1{
+    color:#00ffe7;
+    text-shadow:0 0 20px cyan;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+nav ul li{
+    cursor:pointer;
+    transition:0.3s;
+}
+nav ul li:hover{ color:#ff00ff; }
+
+.controls button{
+    margin-left:10px;
+    padding:8px 15px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* ===== SLIDER ===== */
+.slider{
+    height:320px;
+    overflow:hidden;
+}
+.slides{
+    display:flex;
+    width:300%;
+    animation:slide 10s infinite;
+}
+.slides img{
+    width:100%;
+    object-fit:cover;
+}
+@keyframes slide{
+    0%{transform:translateX(0)}
+    33%{transform:translateX(-100%)}
+    66%{transform:translateX(-200%)}
+    100%{transform:translateX(0)}
+}
+
+/* ===== PRODUCTS ===== */
+.products{
+    padding:40px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:var(--card);
+    padding:20px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 20px cyan;
+    transition:0.5s;
+}
+.card:hover{
+    transform:scale(1.1) rotate(1deg);
+    box-shadow:0 0 40px magenta;
+}
+.card img{
+    width:100%;
+    height:160px;
+    object-fit:contain;
+    animation:float 3s infinite alternate;
+}
+@keyframes float{
+    to{transform:translateY(-15px)}
+}
+
+.price{ color:#00ffcc; font-size:18px; }
+
+.buy{
+    margin-top:10px;
+    padding:8px 20px;
+    border:none;
+    border-radius:20px;
+    background:#00ffcc;
+    cursor:pointer;
+}
+
+/* ===== POPUPS ===== */
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:200;
+}
+.popup .box{
+    background:var(--card);
+    padding:30px;
+    border-radius:20px;
+    width:300px;
+    text-align:center;
+}
+.popup input{
+    width:100%;
+    margin:10px 0;
+    padding:10px;
+}
+
+/* ===== CART ===== */
+#cartItems{
+    max-height:200px;
+    overflow:auto;
+}
+
+/* ===== PARTICLES ===== */
+.particle{
+    position:fixed;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    animation:fall 5s linear infinite;
+}
+@keyframes fall{
+    to{transform:translateY(100vh);opacity:0}
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    box-shadow:0 0 20px cyan;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h1>hemoon.shoppy</h1>
+    <ul>
+        <li>Home</li>
+        <li>Contact</li>
+        <li>📞 8637281326</li>
+    </ul>
+    <div class="controls">
+        <button onclick="toggleTheme()">🌙</button>
+        <button onclick="openLogin()">Login</button>
+        <button onclick="openCart()">🛒 Cart</button>
+        <button id="musicBtn">🎵</button>
+    </div>
+</nav>
+
+<div class="slider">
+    <div class="slides">
+        <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f">
+        <img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd47">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e">
+    </div>
+</div>
+
+<section class="products">
+    <div class="card">
+        <img src="../../assests/images/aadi-men-s-black-synthetic-leather-outdoor-casual-shoes-product-images-rveoewbg6g-1-202205311118.shoes.webp">
+        <h3>Shoes</h3>
+        <p class="price">₹2999</p>
+        <button class="buy" onclick="addCart('Shoes',2999)">Add</button>
+    </div>
+    <div class="card">
+        <img src="https://pngimg.com/uploads/jacket/jacket_PNG8054.png">
+        <h3>Jacket</h3>
+        <p class="price">₹4499</p>
+        <button class="buy" onclick="addCart('Jacket',4499)">Add</button>
+    </div>
+    <div class="card">
+        <img src="../../assests/images/OIP (1).watches.webp">
+        <h3>Watch</h3>
+        <p class="price">₹6999</p>
+        <button class="buy" onclick="addCart('Watch',6999)">Add</button>
+    </div>
+</section>
+
+<footer>© 2026 hemoon.shoppy 🔥</footer>
+
+<!-- LOGIN -->
+<div class="popup" id="login">
+    <div class="box">
+        <h3>Login</h3>
+        <input placeholder="Username">
+        <input placeholder="Password" type="password">
+        <button onclick="closePopups()">Login</button>
+    </div>
+</div>
+
+<!-- CART -->
+<div class="popup" id="cart">
+    <div class="box">
+        <h3>Cart</h3>
+        <div id="cartItems"></div>
+        <h4>Total: ₹<span id="total">0</span></h4>
+        <button onclick="closePopups()">Close</button>
+    </div>
+</div>
+
+<audio id="music" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<script>
+/* MUSIC */
+let play=false;
+musicBtn.onclick=()=>{
+    play?music.pause():music.play();
+    play=!play;
+};
+
+/* THEME */
+function toggleTheme(){
+    document.body.classList.toggle("light");
+}
+
+/* POPUPS */
+function openLogin(){ login.style.display="flex"; }
+function openCart(){ cart.style.display="flex"; }
+function closePopups(){
+    login.style.display=cart.style.display="none";
+}
+
+/* CART */
+let total=0;
+function addCart(name,price){
+    cartItems.innerHTML+=`<p>${name} - ₹${price}</p>`;
+    total+=price;
+    document.getElementById("total").innerText=total;
+}
+
+/* PARTICLES */
+setInterval(()=>{
+    let p=document.createElement("div");
+    p.className="particle";
+    p.style.left=Math.random()*100+"vw";
+    p.style.background=`hsl(${Math.random()*360},100%,70%)`;
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),5000);
+},120);
+</script>
+
+</body>
+</html>
